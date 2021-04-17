@@ -31,7 +31,7 @@ public class CleintExplorer {
             }
 
         }
-        iff (totalValue > 0) {
+        if (totalValue > 0) {
             double avgValue = totalValue / clientsFromCountryCounter;
             System.out.printf("Średnia wartość klienta z %s to %.2f", country, avgValue);
         }

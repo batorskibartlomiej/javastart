@@ -8,11 +8,26 @@ public class Magazine extends Publication {
       private int day;
       private String language;
 
+    public static final String TYPE = "Magazyn";
+
+
+
     public Magazine(String title, String publisher, String language, int year, int month, int day) {
         super(title, publisher, year);
         this.language = language;
         this.month = month;
         this.day = day;
+    }
+
+    @Override
+    public String toCsv() {
+        return (TYPE + ";") +
+                getTitle() + ";" +
+                getPublisher() + ";" +
+                getYear() + ";" +
+                month + ";" +
+                day + ";" +
+                language + "";
     }
 
     public int getMonth() {

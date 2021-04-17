@@ -1,6 +1,14 @@
 package pl.javastart.library.model;
 
-public class Library {
+import pl.javastart.library.exceptions.PublicationAlreadyExistException;
+import pl.javastart.library.exceptions.UserAlreadyExistException;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Library implements Serializable {
 
 //    private static final int MAX_BOOKS = 1000;
 //    private static final int MAX_MAGAZINES = 1000;
@@ -9,40 +17,49 @@ public class Library {
 //    private int booksNumber = 0;
 //    private int magazinesNumber;
 
-    private static final int MAX_PUBLICATION = 2000;
-    private Publication[] publications = new Publication[MAX_PUBLICATION];
-    private int publicationNumber = 0;
 
 
-    public Publication[] getPublications() {
-        Publication[] result = new Publication[publicationNumber];
-        for (int i = 0; i < result.length; i++) {
-            result[i]= publications[i];
+
+    private Map<String, Publication> publications = new HashMap<>();
+    private Map<String, LibraryUser> users = new HashMap<>();
+
+    public Map<String, Publication> getPublications() {
+        return publications;
+    }
+
+    public Map<String, LibraryUser> getUsers() {
+        return users;
+    }
+
+    public void addPublication(Publication publication) {
+        if (publications.containsKey(publication.getTitle())) {
+            throw new PublicationAlreadyExistException(
+                    "Publikacja o takim tytule istnieje "+publication.getTitle()
+            );
+        }
+            publications.put(publication.getTitle(), publication);
 
         }
-        return result;
-    }
-
-    public void addBook(Book book) {
-
-        addPublication(book);
-
-    }
 
 
+        public void addUser(LibraryUser user){
+         if(users.containsKey(user.getPesel())){
+             throw new UserAlreadyExistException(
+                     "Uzytkownik ze wskazanym peselem już istenieje " + user.getPesel()
+             );
+         }
+         users.put(user.getPesel(),user);
 
-    public void addMagazine(Magazine magazine) {
-        addPublication(magazine);
-
-    }
-
-    private void addPublication(Publication publication) {
-        if (publicationNumber >= MAX_PUBLICATION) {
-            throw new ArrayIndexOutOfBoundsException("Max publications exceeded " + MAX_PUBLICATION);
         }
-        publications[publicationNumber] = publication;
-        publicationNumber++;
+
+    public boolean removePublication(Publication pub) {
+       if(publications.containsValue(pub)){
+           publications.remove(pub.getTitle());
+           return true;
+       }else{
+           return false;
+       }
+
+
     }
-
-
 }
