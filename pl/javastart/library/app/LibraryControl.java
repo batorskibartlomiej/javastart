@@ -6,9 +6,11 @@ import pl.javastart.library.io.DataReader;
 import pl.javastart.library.io.file.FileManager;
 import pl.javastart.library.io.file.FileManagerBuilder;
 import pl.javastart.library.model.*;
+import pl.javastart.library.model.comparator.AlphabeticalTitleComparator;
 
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -74,7 +76,10 @@ public class LibraryControl {
     }
 
     private void printUsers() {
-        printer.printUsers(library.getUsers().values());
+        printer.printUsers(library.getSortedUsers(
+//                (p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName())));
+                Comparator.comparing(User::getLastName, String.CASE_INSENSITIVE_ORDER)
+        ));
     }
 
     private void addUser() {
@@ -123,7 +128,10 @@ public class LibraryControl {
 
     private void printBooks() {
 
-        printer.printBooks(library.getPublications().values());
+        printer.printBooks(library.getSortedPublication(
+//                (p1,p2)-> p1.getTitle().compareToIgnoreCase(p2.getTitle())
+                Comparator.comparing((Publication::getTitle,String.CASE_INSENSITIVE_ORDER))
+        );
     }
 
 
@@ -141,7 +149,10 @@ public class LibraryControl {
 
     private void printMagazines() {
 
-        printer.printMagazines(library.getPublications().values());
+        printer.printMagazines(library.getSortedPublication(
+//                (p1,p2)->p1.getTitle().compareToIgnoreCase(p2.getTitle())
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)
+        ));
     }
 
     private void deleteMagazine() {
@@ -212,4 +223,6 @@ public class LibraryControl {
             }
         }
     }
+
+
 }

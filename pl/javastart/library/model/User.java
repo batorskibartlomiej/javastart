@@ -3,7 +3,7 @@ package pl.javastart.library.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class User implements Serializable {
+public abstract class User implements Serializable, CsvConvertible{
 
     private String firstName;
     private String lastName;
@@ -36,6 +36,8 @@ public abstract class User implements Serializable {
                 pesel;
     }
 
+
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -56,7 +58,6 @@ public abstract class User implements Serializable {
         this.pesel = pesel;
     }
 
-    public abstract String toCsv();
 
     public User(String firstName, String lastName, String pesel) {
         this.firstName = firstName;
