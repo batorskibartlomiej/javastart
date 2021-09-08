@@ -130,7 +130,7 @@ public class LibraryControl {
 
         printer.printBooks(library.getSortedPublication(
 //                (p1,p2)-> p1.getTitle().compareToIgnoreCase(p2.getTitle())
-                Comparator.comparing((Publication::getTitle,String.CASE_INSENSITIVE_ORDER))
+                Comparator.comparing((Publication::getTitle),String.CASE_INSENSITIVE_ORDER))
         );
     }
 
