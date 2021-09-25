@@ -115,4 +115,4 @@ public class CsvFileManager implements FileManager {
         } catch (IOException e) {
             throw new DataExportException("Błąd zapisu danych do pliku " + fileName);
         }
-    }terefere
+    }
