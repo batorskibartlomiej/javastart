@@ -33,19 +33,17 @@ public class CsvFileManager implements FileManager {
     }
 
 
-
-
     private void exportUsers(Library library) {
         Collection<LibraryUser> users = library.getUsers().values();
-        exportToCsv(users, USERS_FILE_NAME );
+        exportToCsv(users, USERS_FILE_NAME);
     }
 
     private Publication createObjectFromString(String csvText) {
         String[] split = csvText.split(";");
         String type = split[0];
-        if(Book.TYPE.equals(type)) {
+        if (Book.TYPE.equals(type)) {
             return createBook(split);
-        } else if(Magazine.TYPE.equals(type)) {
+        } else if (Magazine.TYPE.equals(type)) {
             return createMagazine(split);
         }
         throw new InvalidDataException("Nieznany typ publikacji: " + type);
@@ -72,7 +70,7 @@ public class CsvFileManager implements FileManager {
     }
 
     private void importPublications(Library library) {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(PUBLICATIONS_FILE_NAME))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(PUBLICATIONS_FILE_NAME))) {
             bufferedReader.lines()
                     .map(this::createObjectFromString)
                     .forEach(library::addPublication);
@@ -82,7 +80,6 @@ public class CsvFileManager implements FileManager {
             throw new DataImportException("Błąd odczytu pliku " + PUBLICATIONS_FILE_NAME);
         }
     }
-
 
 
     private void importUsers(Library library) {
@@ -116,3 +113,4 @@ public class CsvFileManager implements FileManager {
             throw new DataExportException("Błąd zapisu danych do pliku " + fileName);
         }
     }
+}
