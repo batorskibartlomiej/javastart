@@ -9,19 +9,16 @@ import java.util.Collection;
 
 public class ConsolePrinter {
 
-    public void printMagazines(Collection<Publication> publications) {
-        int countMagazines=0;
-        for (Publication publication : publications) {
-            
+    public void printMagazines(Collection<Publication> publications) {//może być tak, ale to niżej tez jets ok
+        long count = publications.stream()
+                .filter(p->p instanceof Magazine)
+                .map(Publication::toString)
+                .peek(this::printLine)
+                .count();
+                if(count==0)
+                    printLine("Brak magazynów w bibliotece");
 
-            if(publication instanceof Magazine)
 
-                printLine(publication.toString());
-            countMagazines++;
-        }
-        if (countMagazines == 0) {
-            printLine("Brak magazynów w bibliotece");
-        }
 
 
     }
