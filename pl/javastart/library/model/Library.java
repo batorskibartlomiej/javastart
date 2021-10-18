@@ -3,6 +3,7 @@ package pl.javastart.library.model;
 import pl.javastart.library.exceptions.PublicationAlreadyExistException;
 import pl.javastart.library.exceptions.UserAlreadyExistException;
 
+import javax.swing.text.html.Option;
 import java.io.Serializable;
 import java.util.*;
 
@@ -29,6 +30,10 @@ public class Library implements Serializable {
         return users;
     }
 
+
+    public Optional<Publication> findPublicationByTitle(String title) {
+        return Optional.ofNullable(publications.get(title));
+    }
 
     public Collection<Publication>getSortedPublication(Comparator<Publication> comparator){
 
